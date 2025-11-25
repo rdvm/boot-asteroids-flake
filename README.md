@@ -7,7 +7,14 @@ some additional libraries/packages, so this is a flake meant to address that +
 the `uv` requirement.
 
 - Clone this repo
-- `direnv allow` to enable `direnv` activation for the project
-- `uv venv` to create virtual environment that will be activated automatically
-by direnv
-- `uv sync` to install python packages
+- "Detach" code from this repo and clear Git history
+  - `cd boot-asteroids-flake`
+  - `rm -rf .git`
+- Initialize new Git repository
+  - `git init`
+- Enable `direnv` activation for the project
+  - `direnv allow`
+- Create virtual environment that will be activated automatically by direnv
+  - `uv venv`
+- Install python packages
+  - `uv sync`
