@@ -14,7 +14,8 @@ the `uv` requirement.
   - `git init`
 - Enable `direnv` activation for the project
   - `direnv allow`
-- Create virtual environment that will be activated automatically by direnv
+- Create virtual environment that will be activated automatically by direnv when entering directory
   - `uv venv`
+  - Manually activate as prompted with `source .venv/bin/activate` since we're already in the directory
 - Install python packages
   - `uv sync`
