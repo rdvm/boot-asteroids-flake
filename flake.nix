@@ -20,7 +20,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             ruff
-            pyright
+            basedpyright
             python
             pythonPackages
             uv
