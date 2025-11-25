@@ -11,10 +11,9 @@
       let
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python3;
-        # Define Python packages managed by uv
-        pythonPackages = python.withPackages (ps: with ps; [
-          # additional Python packages here if needed
-        ]);
+        # additional Python packages here if needed
+        # pythonPackages = python.withPackages (ps: with ps; [
+        # ]);
       in
       {
         devShells.default = pkgs.mkShell {
@@ -22,7 +21,7 @@
             ruff
             basedpyright
             python
-            pythonPackages
+            # pythonPackages
             uv
             SDL2
             SDL2_image
