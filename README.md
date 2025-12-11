@@ -12,10 +12,17 @@ the `uv` requirement.
   - `rm -rf .git`
 - Initialize new Git repository
   - `git init`
+- Stage files so `flake.nix` can be used (can also do initial commit of all
+files if you want)
+  - `git add .`
+  - _(optional)_ `git commit -m "batman"`
+    - "batman...because he ain't got no parents" - ThePrimeagen
 - Enable `direnv` activation for the project
   - `direnv allow`
-- Create virtual environment that will be activated automatically by direnv when entering directory
+- Create virtual environment that will be activated automatically by direnv when
+entering directory
   - `uv venv`
-  - Manually activate as prompted with `source .venv/bin/activate` since we're already in the directory
+  - Manually activate as prompted with `source .venv/bin/activate` since we're
+  already in the directory
 - Install python packages
   - `uv sync`
