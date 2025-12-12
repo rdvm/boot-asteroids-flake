@@ -3,7 +3,7 @@ name = "boot-asteroids"
 version = "0.1.0"
 description = "Nix flake with uv for boot.dev asteroids project"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = "==3.13.*"
 dependencies = [
     "pygame==2.6.1",
 ]
@@ -11,3 +11,9 @@ dependencies = [
 [tool.basedpyright]
 typeCheckingMode = "off"
 reportAttributeAccessIssue = "none"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.36.1",
+    "ruff>=0.14.9",
+]

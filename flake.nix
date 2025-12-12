@@ -39,20 +39,23 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            basedpyright
             go
+            jq
             python
-            ruff
             uv
           ] ++ sdl2Packages;
 
           shellHook =
             lib.optionalString isLinux ''
               export LD_LIBRARY_PATH=${lib.makeLibraryPath sdl2Packages}:$LD_LIBRARY_PATH
-              [ -z "$DISPLAY" ] && export DISPLAY=:0 && export GOPATH="$HOME/go/" && export PATH="$PATH:$HOME/go/bin"
+              [ -z "$DISPLAY" ]
+              && export DISPLAY=:0
+              && export GOPATH="$HOME/go/"
+              && export PATH="$PATH:$HOME/go/bin"
             '' +
             lib.optionalString isDarwin ''
-              export GOPATH="$HOME/go/" && export PATH="$PATH:$HOME/go/bin"
+              export GOPATH="$HOME/go/"
+              && export PATH="$PATH:$HOME/go/bin"
               && echo "macOS detected – SDL2 ready (frameworks auto-linked via nixpkgs)"
             '';
         };
