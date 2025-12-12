@@ -10,7 +10,7 @@ dependencies = [
 
 [tool.basedpyright]
 typeCheckingMode = "off"
-reportAttributeAccessIssue = "none"
+reportUnusedVariable = "none"
 
 [dependency-groups]
 dev = [
