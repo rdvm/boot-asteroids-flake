@@ -11,15 +11,13 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config = { allowUnfree = true; };
+          config.allowUnfree = true;
         };
 
         lib = pkgs.lib;
 
-        isDarwin = pkgs.stdenv.isDarwin;
-        isLinux = pkgs.stdenv.isLinux;
-
-        python = pkgs.python3;
+        go = pkgs.go_1_24;
+        python = pkgs.python313;
 
         sdl2Packages = with pkgs; [
           SDL2
@@ -27,7 +25,7 @@
           SDL2_ttf
           SDL2_mixer
           SDL2_gfx
-        ] ++ lib.optionals isLinux [
+        ] ++ lib.optionals stdenv.isLinux [
           libGL
           mesa
           xorg.libX11
@@ -45,20 +43,23 @@
             uv
           ] ++ sdl2Packages;
 
-          shellHook =
-            lib.optionalString isLinux ''
+          shellHook = ''
+            [ ! -d .venv ] && uv venv --python ${python}/bin/python
+            source .venv/bin/activate
+            uv sync --frozen --quiet || true
+
+            # Go
+            export GOPATH="$HOME/go"
+            export PATH="$GOPATH/bin:$PATH"
+
+            # Linux runtime fixes
+            ${lib.optionalString pkgs.stdenv.isLinux ''
               export LD_LIBRARY_PATH=${lib.makeLibraryPath sdl2Packages}:$LD_LIBRARY_PATH
-              [ -z "$DISPLAY" ]
-              && export DISPLAY=:0
-              && export GOPATH="$HOME/go/"
-              && export PATH="$PATH:$HOME/go/bin"
-            '' +
-            lib.optionalString isDarwin ''
-              export GOPATH="$HOME/go/"
-              && export PATH="$PATH:$HOME/go/bin"
-              && echo "macOS detected – SDL2 ready (frameworks auto-linked via nixpkgs)"
-            '';
+              [ -z "$DISPLAY" ] && export DISPLAY=:0
+            ''}
+
+            echo "Nix devShell ready — $(python --version), $(go version), uv venv active"
+          '';
         };
-      }
-    );
+      });
 }
