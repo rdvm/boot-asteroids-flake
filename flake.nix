@@ -56,6 +56,7 @@
             ${lib.optionalString pkgs.stdenv.isLinux ''
               export LD_LIBRARY_PATH=${lib.makeLibraryPath sdl2Packages}:$LD_LIBRARY_PATH
               [ -z "$DISPLAY" ] && export DISPLAY=:0
+              export SDL_VIDEODRIVER=x11
             ''}
 
             echo "Nix devShell ready — $(python --version), $(go version), uv venv active"
